@@ -1,6 +1,7 @@
 const initialState = {
   activeLists: [
     {
+      id: "abc",
       title: "List One",
       listItems: [
         { value: "Item 1", checked: false },
@@ -8,6 +9,7 @@ const initialState = {
       ],
     },
     {
+      id: "def",
       title: "List Two",
       listItems: [
         { value: "Item 1", checked: false },
@@ -15,6 +17,7 @@ const initialState = {
       ],
     },
     {
+      id: "ghi",
       title: "List Three",
       listItems: [
         { value: "Item 1", checked: false },
@@ -22,6 +25,7 @@ const initialState = {
       ],
     },
     {
+      id: "jkl",
       title: "List Four",
       listItems: [
         { value: "Item 1", checked: false },
@@ -29,6 +33,7 @@ const initialState = {
       ],
     },
     {
+      id: "mno",
       title: "List Five",
       listItems: [
         { value: "Item 1", checked: false },

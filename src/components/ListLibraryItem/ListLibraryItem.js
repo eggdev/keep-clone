@@ -20,7 +20,7 @@ const CardContent = withStyles((theme) => ({
   },
 }))(MuiCardContent);
 
-const ListLibraryItem = ({ listDetails }) => {
+const ListLibraryItem = ({ listDetails, openEditableList }) => {
   const [listItems, setListItems] = useState(listDetails.listItems);
   const dispatch = useDispatch();
 
@@ -28,9 +28,15 @@ const ListLibraryItem = ({ listDetails }) => {
     console.log(listItems);
   }, [listItems]);
 
+  const handleListClick = (evt) => {
+    if (evt.target.type !== "checkbox") {
+      openEditableList(listDetails.id);
+    }
+  };
+
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
-      <Card variant="elevation">
+      <Card variant="elevation" onClick={handleListClick}>
         <CardHeader title={listDetails.title} />
         <CardContent>
           <CustomListItems

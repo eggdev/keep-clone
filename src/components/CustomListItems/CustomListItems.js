@@ -59,6 +59,7 @@ const CustomListItems = ({
                 edge="start"
                 tabIndex={-1}
                 disableRipple
+                size="small"
                 onClick={() => handledCheckedItem(item)}
               />
             </ListItemIcon>
