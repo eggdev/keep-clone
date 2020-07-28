@@ -24,15 +24,19 @@ const ListItemInput = ({
 }) => {
   const [currentListInput, setCurrentListInput] = useState(existingItem);
 
-  const handleCurrentListItemChange = (evt) => {
-    setCurrentListInput({ value: evt.target.value });
+  const editExistingListItem = (value) => {
     if (!newItem) {
       const newList = [...listItems];
       const listItemToUpdate = { ...newList[index] };
-      listItemToUpdate.value = evt.target.value;
+      listItemToUpdate.value = value;
       newList[index] = listItemToUpdate;
       setListItems([...newList]);
     }
+  };
+
+  const handleCurrentListItemChange = (evt) => {
+    setCurrentListInput({ value: evt.target.value });
+    if (!newItem) editExistingListItem(evt.target.value);
   };
 
   const handleBlur = () => handleListItemSubmit({ key: "Enter" });
@@ -49,6 +53,7 @@ const ListItemInput = ({
         ]);
         setCurrentListInput({ value: "", checked: false });
       }
+      if (document && document.activeElement) document.activeElement.blur();
     }
   };
 
