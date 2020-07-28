@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -9,6 +10,8 @@ import Button from "@material-ui/core/Button";
 
 import CustomListItems from "../CustomListItems/CustomListItems";
 
+import { createActiveList } from "../../store/lists.actions";
+
 const useStyles = makeStyles((theme) => ({
   dialogContainer: {
     width: "100%",
@@ -17,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CreateList = ({ showDialog, setShowDialog }) => {
   const { dialogContainer } = useStyles();
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [listItems, setListItems] = useState([]);
   const handleTitleChange = (evt) => {
@@ -29,10 +33,15 @@ const CreateList = ({ showDialog, setShowDialog }) => {
   };
 
   const handleCreateList = () => {
-    console.log({
-      title,
-      listItems,
-    });
+    if (title !== "" && listItems.length > 0) {
+      dispatch(
+        createActiveList({
+          title,
+          listItems,
+        })
+      );
+      setShowDialog(false);
+    }
   };
 
   return (
