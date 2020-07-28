@@ -50,7 +50,7 @@ const ListLibraryItem = ({ listDetails, openEditableList }) => {
         <CardHeader
           title={listDetails.title}
           action={
-            <IconButton onClick={handleListDelete}>
+            <IconButton data-testid="delete-list" onClick={handleListDelete}>
               <Delete type="button" />
             </IconButton>
           }
