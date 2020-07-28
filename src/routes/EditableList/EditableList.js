@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useRouteMatch } from "react-router-dom";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -10,19 +11,32 @@ import Button from "@material-ui/core/Button";
 
 import CustomListItems from "../../components/CustomListItems/CustomListItems";
 
-import { createActiveList } from "../../store/lists.actions";
+import { createActiveList, updateActiveList } from "../../store/lists.actions";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   dialogContainer: {
     width: "100%",
   },
 }));
 
-const EditableList = ({ showDialog, setShowDialog }) => {
+const EditableList = ({ showDialog, setShowDialog, newList = false }) => {
+  const { lists } = useSelector((state) => state);
+  const routeMatch = useRouteMatch("/list/:id");
+
   const { dialogContainer } = useStyles();
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
-  const [listItems, setListItems] = useState([]);
+
+  const findEditingList = (param) => {
+    const listId = routeMatch && routeMatch.isExact && routeMatch.params.id;
+    const list = lists.activeLists.find((x) => x.id === listId);
+    return list[param];
+  };
+
+  const [title, setTitle] = useState(newList ? "" : findEditingList("title"));
+  const [listItems, setListItems] = useState(
+    newList ? [] : findEditingList("listItems")
+  );
+
   const handleTitleChange = (evt) => {
     setTitle(evt.target.value);
   };
@@ -41,6 +55,19 @@ const EditableList = ({ showDialog, setShowDialog }) => {
         })
       );
       setShowDialog(false);
+    }
+  };
+
+  const handleEditList = () => {
+    const listId = routeMatch && routeMatch.isExact && routeMatch.params.id;
+    if (title !== "" && listItems.length > 0) {
+      dispatch(
+        updateActiveList({
+          id: listId,
+          title,
+          listItems,
+        })
+      );
     }
   };
 
@@ -66,7 +93,9 @@ const EditableList = ({ showDialog, setShowDialog }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClearList}>Clear</Button>
-        <Button onClick={handleCreateList}>Create</Button>
+        <Button onClick={newList ? handleCreateList : handleEditList}>
+          {newList ? "Create" : "Edit"}
+        </Button>
       </DialogActions>
     </Dialog>
   );

@@ -11,7 +11,7 @@ const ListLibrary = () => {
   const routeMatch = useRouteMatch("/list/:id");
   const isExact = routeMatch && routeMatch.isExact;
 
-  const { lists } = useSelector((state) => state);
+  const { activeLists } = useSelector((state) => state.lists);
 
   const openEditableList = (id) => {
     history.push(`/list/${id}`);
@@ -23,9 +23,9 @@ const ListLibrary = () => {
 
   return (
     <Grid container spacing={1}>
-      {lists.activeLists.map((individualList) => (
+      {activeLists.map((individualList) => (
         <ListLibraryItem
-          key={individualList.title}
+          key={individualList.id}
           listDetails={individualList}
           openEditableList={openEditableList}
         />

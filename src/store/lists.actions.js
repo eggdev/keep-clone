@@ -5,10 +5,9 @@ export function createActiveList(newList) {
   };
 }
 
-export function updateListItems(id, items) {
+export function updateActiveList({ id, title, listItems }) {
   return {
     type: "UPDATE_LIST_ITEMS",
-    id,
-    items,
+    updated: { id, title, listItems },
   };
 }
