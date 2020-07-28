@@ -1,46 +1,6 @@
+import { idGenerator } from "../utils/helpers.js";
 const initialState = {
-  activeLists: [
-    {
-      id: "abc",
-      title: "List One",
-      listItems: [
-        { value: "Item 1", checked: false },
-        { value: "Item 2", checked: false },
-      ],
-    },
-    {
-      id: "def",
-      title: "List Two",
-      listItems: [
-        { value: "Item 1", checked: false },
-        { value: "Item 2", checked: false },
-      ],
-    },
-    {
-      id: "ghi",
-      title: "List Three",
-      listItems: [
-        { value: "Item 1", checked: false },
-        { value: "Item 2", checked: false },
-      ],
-    },
-    {
-      id: "jkl",
-      title: "List Four",
-      listItems: [
-        { value: "Item 1", checked: false },
-        { value: "Item 2", checked: false },
-      ],
-    },
-    {
-      id: "mno",
-      title: "List Five",
-      listItems: [
-        { value: "Item 1", checked: false },
-        { value: "Item 2", checked: false },
-      ],
-    },
-  ],
+  activeLists: [],
   archivedLists: [],
 };
 
@@ -49,7 +9,10 @@ export const lists = (state = initialState, action) => {
     case "CREATE_ACTIVE_LIST":
       return {
         ...state,
-        activeLists: [...state.activeLists, action.newList],
+        activeLists: [
+          ...state.activeLists,
+          { ...action.newList, id: idGenerator() },
+        ],
       };
     case "UPDATE_LIST_ITEMS":
       const updateIndex = state.activeLists.findIndex(

@@ -47,7 +47,7 @@ const EditableList = ({ showDialog, setShowDialog, newList = false }) => {
   };
 
   const handleCreateList = () => {
-    if (title !== "" && listItems.length > 0) {
+    if (title !== "" || listItems.length > 0) {
       dispatch(
         createActiveList({
           title,
@@ -71,10 +71,16 @@ const EditableList = ({ showDialog, setShowDialog, newList = false }) => {
     }
   };
 
+  const onClose = () => {
+    if (newList) handleCreateList();
+    else handleEditList();
+    setShowDialog(false);
+  };
+
   return (
     <Dialog
       open={showDialog}
-      onClose={() => setShowDialog(false)}
+      onClose={onClose}
       maxWidth="sm"
       PaperProps={{
         className: dialogContainer,
@@ -93,9 +99,7 @@ const EditableList = ({ showDialog, setShowDialog, newList = false }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClearList}>Clear</Button>
-        <Button onClick={newList ? handleCreateList : handleEditList}>
-          {newList ? "Create" : "Edit"}
-        </Button>
+        <Button onClick={onClose}>Close</Button>
       </DialogActions>
     </Dialog>
   );
