@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
@@ -10,7 +10,6 @@ const ListLibrary = () => {
   const history = useHistory();
   const routeMatch = useRouteMatch("/list/:id");
   const isExact = routeMatch && routeMatch.isExact;
-
   const { activeLists } = useSelector((state) => state.lists);
 
   const openEditableList = (id) => {

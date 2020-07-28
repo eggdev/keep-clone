@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -7,6 +7,8 @@ import MuiCardHeader from "@material-ui/core/CardHeader";
 import MuiCardContent from "@material-ui/core/CardContent";
 
 import CustomListItems from "../CustomListItems/CustomListItems";
+
+import { updateActiveList } from "../../store/lists.actions";
 
 const CardHeader = withStyles((theme) => ({
   root: {
@@ -21,13 +23,19 @@ const CardContent = withStyles((theme) => ({
 }))(MuiCardContent);
 
 const ListLibraryItem = ({ listDetails, openEditableList }) => {
-  const [listItems, setListItems] = useState(listDetails.listItems);
   const dispatch = useDispatch();
-
   const handleListClick = (evt) => {
     if (evt.target.type !== "checkbox") {
       openEditableList(listDetails.id);
     }
+  };
+
+  const setListItems = (newListItems) => {
+    const updateListObject = {
+      ...listDetails,
+      listItems: [...newListItems],
+    };
+    dispatch(updateActiveList(updateListObject));
   };
 
   return (
@@ -36,7 +44,7 @@ const ListLibraryItem = ({ listDetails, openEditableList }) => {
         <CardHeader title={listDetails.title} />
         <CardContent>
           <CustomListItems
-            listItems={listItems}
+            listItems={listDetails.listItems}
             setListItems={setListItems}
             inputsDisabled
           />

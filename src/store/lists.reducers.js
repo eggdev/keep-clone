@@ -52,19 +52,26 @@ export const lists = (state = initialState, action) => {
         activeLists: [...state.activeLists, action.newList],
       };
     case "UPDATE_LIST_ITEMS":
-      const foundIndex = state.activeLists.findIndex(
+      const updateIndex = state.activeLists.findIndex(
         (item) => item.id === action.updated.id
       );
 
-      console.log(action.updated);
-
-      state.activeLists[foundIndex] = {
-        ...action.updated,
-      };
-
       return {
         ...state,
-        activeLists: [...state.activeLists],
+        activeLists: [
+          ...state.activeLists.slice(0, updateIndex),
+          { ...action.updated },
+          ...state.activeLists.slice(updateIndex + 1),
+        ],
+      };
+    case "MOVE_LIST_TO_ARCHIVE":
+      const foundObject = state.activeLists.find(
+        (item) => item.id === action.id
+      );
+      return {
+        ...state,
+        activeLists: state.activeLists.filter((item) => item.id !== action.id),
+        archivedLists: [...state.archivedLists, { ...foundObject }],
       };
     default:
       return state;
