@@ -55,6 +55,7 @@ const EditableList = ({ showDialog, setShowDialog, newList = false }) => {
           listItems,
         })
       );
+      handleClearList();
       setShowDialog();
     }
   };

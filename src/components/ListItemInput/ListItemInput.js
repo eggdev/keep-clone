@@ -26,6 +26,13 @@ const ListItemInput = ({
 
   const handleCurrentListItemChange = (evt) => {
     setCurrentListInput({ value: evt.target.value });
+    if (!newItem) {
+      const newList = [...listItems];
+      const listItemToUpdate = { ...newList[index] };
+      listItemToUpdate.value = evt.target.value;
+      newList[index] = listItemToUpdate;
+      setListItems([...newList]);
+    }
   };
 
   const handleBlur = () => handleListItemSubmit({ key: "Enter" });
@@ -40,6 +47,7 @@ const ListItemInput = ({
             checked: false,
           },
         ]);
+        setCurrentListInput({ value: "", checked: false });
       }
     }
   };
@@ -62,11 +70,12 @@ const ListItemInput = ({
       </ListItemIcon>
       <TextField
         placeholder="Add an item..."
-        value={currentListInput.value}
+        value={inputsDisabled ? existingItem.value : currentListInput.value}
         onChange={handleCurrentListItemChange}
         onBlur={handleBlur}
         onKeyPress={handleListItemSubmit}
         fullWidth
+        disabled={inputsDisabled}
         {...(!inputsDisabled &&
           !newItem && {
             InputProps: {
