@@ -29,6 +29,7 @@ const EditableList = ({ showDialog, setShowDialog, newList = false }) => {
   const findEditingList = (param) => {
     const listId = routeMatch && routeMatch.isExact && routeMatch.params.id;
     const list = lists.activeLists.find((x) => x.id === listId);
+    if (list === undefined) return setShowDialog();
     return list[param];
   };
 
@@ -54,13 +55,13 @@ const EditableList = ({ showDialog, setShowDialog, newList = false }) => {
           listItems,
         })
       );
-      setShowDialog(false);
+      setShowDialog();
     }
   };
 
   const handleEditList = () => {
     const listId = routeMatch && routeMatch.isExact && routeMatch.params.id;
-    if (title !== "" && listItems.length > 0) {
+    if (title !== "" || listItems.length > 0) {
       dispatch(
         updateActiveList({
           id: listId,

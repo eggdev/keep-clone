@@ -11,3 +11,10 @@ export function updateActiveList({ id, title, listItems }) {
     updated: { id, title, listItems },
   };
 }
+
+export function deleteList(id) {
+  return {
+    type: "ARCHIVE_LIST",
+    id,
+  };
+}
