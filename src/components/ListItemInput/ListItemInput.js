@@ -42,6 +42,7 @@ const ListItemInput = ({
   const handleBlur = () => handleListItemSubmit({ key: "Enter" });
 
   const handleListItemSubmit = (evt) => {
+    console.log(evt);
     if (evt.key === "Enter" && currentListInput.value !== "") {
       if (newItem) {
         setListItems([
@@ -80,6 +81,7 @@ const ListItemInput = ({
         onBlur={handleBlur}
         onKeyPress={handleListItemSubmit}
         fullWidth
+        data-testid="input"
         disabled={inputsDisabled}
         {...(!inputsDisabled &&
           !newItem && {
@@ -87,6 +89,7 @@ const ListItemInput = ({
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
+                    data-testid="remove-item"
                     onClick={() => removeItemFromList(existingItem)}
                     edge="end"
                   >
