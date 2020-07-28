@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => ({
 
 const AppNav = () => {
   const { toolbarContainer } = useStyles();
-  const [showDialog, setShowDialog] = useState(true);
+  const [showDialog, setShowDialog] = useState(false);
   const togglePopover = () => {
     setShowDialog(!showDialog);
   };

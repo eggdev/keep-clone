@@ -4,3 +4,11 @@ export function createActiveList(newList) {
     newList,
   };
 }
+
+export function updateListItems(id, items) {
+  return {
+    type: "UPDATE_LIST_ITEMS",
+    id,
+    items,
+  };
+}

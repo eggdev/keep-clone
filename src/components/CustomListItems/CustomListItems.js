@@ -10,7 +10,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Add from "@material-ui/icons/Add";
 import Close from "@material-ui/icons/Close";
 
-const CustomListItems = ({ listItems, setListItems }) => {
+const CustomListItems = ({
+  listItems,
+  setListItems,
+  inputsDisabled = false,
+}) => {
   const [currentListInput, setCurrentListInput] = useState("");
   const handleCurrentListItemChange = (evt) => {
     setCurrentListInput(evt.target.value);
@@ -48,7 +52,7 @@ const CustomListItems = ({ listItems, setListItems }) => {
     <List>
       {listItems.map((item) => {
         return (
-          <ListItem key={item.value}>
+          <ListItem dense key={item.value}>
             <ListItemIcon>
               <Checkbox
                 checked={item.checked}
@@ -61,34 +65,39 @@ const CustomListItems = ({ listItems, setListItems }) => {
             <TextField
               value={item.value}
               fullWidth
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => removeItemFromList(item)}
-                      edge="end"
-                    >
-                      <Close />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
+              disabled={inputsDisabled}
+              {...(!inputsDisabled && {
+                InputProps: {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => removeItemFromList(item)}
+                        edge="end"
+                      >
+                        <Close />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                },
+              })}
             />
           </ListItem>
         );
       })}
-      <ListItem>
-        <ListItemIcon>
-          <Add edge="start" />
-        </ListItemIcon>
-        <TextField
-          placeholder="Add an item..."
-          value={currentListInput}
-          onChange={handleCurrentListItemChange}
-          onKeyPress={handleListItemSubmit}
-          fullWidth
-        />
-      </ListItem>
+      {!inputsDisabled && (
+        <ListItem>
+          <ListItemIcon>
+            <Add edge="start" />
+          </ListItemIcon>
+          <TextField
+            placeholder="Add an item..."
+            value={currentListInput}
+            onChange={handleCurrentListItemChange}
+            onKeyPress={handleListItemSubmit}
+            fullWidth
+          />
+        </ListItem>
+      )}
     </List>
   );
 };
