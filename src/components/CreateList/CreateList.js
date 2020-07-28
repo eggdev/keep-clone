@@ -2,66 +2,62 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
+import CustomListItems from "../CustomListItems/CustomListItems";
+
 const useStyles = makeStyles((theme) => ({
   dialogContainer: {
-    minWidth: "100%",
+    width: "100%",
   },
 }));
 
 const CreateList = ({ showDialog, setShowDialog }) => {
   const { dialogContainer } = useStyles();
   const [title, setTitle] = useState("");
-  const [currentListInput, setCurrentListInput] = useState("");
   const [listItems, setListItems] = useState([]);
-
   const handleTitleChange = (evt) => {
     setTitle(evt.target.value);
   };
-  const handleCurrentListItemChange = (evt) => {
-    setCurrentListInput(evt.target.value);
+
+  const handleClearList = () => {
+    setListItems([]);
+    setTitle("");
   };
 
-  const handleListItemSubmit = (evt) => {
-    if (evt.key === "Enter" && currentListInput !== "") {
-      setListItems([...listItems, currentListInput]);
-      setCurrentListInput("");
-    }
+  const handleCreateList = () => {
+    console.log({
+      title,
+      listItems,
+    });
   };
 
   return (
     <Dialog
-      className={dialogContainer}
       open={showDialog}
       onClose={() => setShowDialog(false)}
-      maxWidth="md"
+      maxWidth="sm"
+      PaperProps={{
+        className: dialogContainer,
+      }}
     >
       <DialogTitle>
         <TextField
           placeholder="Title"
           value={title}
           onChange={handleTitleChange}
+          fullWidth
         />
       </DialogTitle>
       <DialogContent>
-        {listItems.map((li) => (
-          <Typography>{li}</Typography>
-        ))}
-        <TextField
-          placeholder="Add an item..."
-          value={currentListInput}
-          onChange={handleCurrentListItemChange}
-          onKeyPress={handleListItemSubmit}
-        />
+        <CustomListItems listItems={listItems} setListItems={setListItems} />
       </DialogContent>
       <DialogActions>
-        <Button>Clear</Button>
-        <Button>Create</Button>
+        <Button onClick={handleClearList}>Clear</Button>
+        <Button onClick={handleCreateList}>Create</Button>
       </DialogActions>
     </Dialog>
   );
