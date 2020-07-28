@@ -1,3 +1,24 @@
+## To Spin Up
+
+Pull down repo https://github.com/EliasSportsBureau/react-exercise-todolist-brendan-eggers
+
+`yarn install`
+
+or
+
+Remove yarn.lock file and run
+
+`yarn install`
+
+Run
+`yarn start`
+
+or
+
+`npm run start`
+
+and navigate to http://localhost:3000
+
 # React Exercise Todo-List
 
 We will be building a todo-list in React!
@@ -13,11 +34,13 @@ Our application should contain two main views:
 
 ## Requirements
 
-- Use a static site generator: create-react-app
-- Utilize state managemnt using react-redux
-- Allow for direct links to a todo list
-- Provide methods for adding, editing and deleting lists
-- Define a few unit tests using your favorite testing framework
-- Show how you check your source code for programmatic and stylistic errors
-- Break up large pages and code blocks into smaller react components
-- Use a UI framework
+- [x] Use a static site generator: create-react-app
+
+- [x] Utilize state managemnt using react-redux
+- [x] Allow for direct links to a todo list
+- [x] Provide methods for adding, editing and deleting lists
+- [x] Define a few unit tests using your favorite testing framework
+- [ ] Show how you check your source code for programmatic and stylistic errors
+  - Figured we could talk about this some more
+- [x] Break up large pages and code blocks into smaller react components
+- [x] Use a UI framework
