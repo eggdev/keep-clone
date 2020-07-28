@@ -24,10 +24,6 @@ const ListLibraryItem = ({ listDetails, openEditableList }) => {
   const [listItems, setListItems] = useState(listDetails.listItems);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(listItems);
-  }, [listItems]);
-
   const handleListClick = (evt) => {
     if (evt.target.type !== "checkbox") {
       openEditableList(listDetails.id);

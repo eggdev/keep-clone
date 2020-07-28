@@ -4,7 +4,7 @@ import { useHistory, useRouteMatch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 
 import ListLibraryItem from "../../components/ListLibraryItem/ListLibraryItem";
-import EditableList from "../../components/EditableList/EditableList";
+import EditableList from "../EditableList/EditableList";
 
 const ListLibrary = () => {
   const history = useHistory();
@@ -17,6 +17,10 @@ const ListLibrary = () => {
     history.push(`/list/${id}`);
   };
 
+  const clearRoute = () => {
+    history.push(`/`);
+  };
+
   return (
     <Grid container spacing={1}>
       {lists.activeLists.map((individualList) => (
@@ -26,7 +30,9 @@ const ListLibrary = () => {
           openEditableList={openEditableList}
         />
       ))}
-      {isExact && <EditableList />}
+      {isExact && (
+        <EditableList showDialog={isExact} setShowDialog={clearRoute} />
+      )}
     </Grid>
   );
 };

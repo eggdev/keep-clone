@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import CreateList from "../CreateList/CreateList";
+import EditableList from "../../routes/EditableList/EditableList";
 
 const useStyles = makeStyles(() => ({
   toolbarContainer: {
@@ -19,13 +19,18 @@ const AppNav = () => {
   const togglePopover = () => {
     setShowDialog(!showDialog);
   };
+
   return (
     <AppBar position="static">
       <Toolbar className={toolbarContainer}>
         <Button onClick={togglePopover} variant="contained">
           Create New List
         </Button>
-        <CreateList showDialog={showDialog} setShowDialog={setShowDialog} />
+        <EditableList
+          newList
+          showDialog={showDialog}
+          setShowDialog={setShowDialog}
+        />
       </Toolbar>
     </AppBar>
   );
