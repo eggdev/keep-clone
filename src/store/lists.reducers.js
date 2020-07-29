@@ -28,11 +28,11 @@ export const lists = (state = initialState, action) => {
         ],
       };
     case "ARCHIVE_LIST":
+      // This would be an easy solution to creating an archive like Google Keep has
       // const foundObject = state.activeLists.find(
       //   (item) => item.id === action.id
       // );
 
-      // This would be an easy solution to creating an archive like Google Keep has
       return {
         ...state,
         activeLists: state.activeLists.filter((item) => item.id !== action.id),

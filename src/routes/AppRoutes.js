@@ -19,6 +19,7 @@ const AppRoutes = () => {
     <Box className={routeContainer}>
       <Suspense fallback={<div>...Loading</div>}>
         <Switch>
+          <Route path="/list/:id" component={ListLibrary} />
           <Route path="/" component={ListLibrary} />
         </Switch>
       </Suspense>
