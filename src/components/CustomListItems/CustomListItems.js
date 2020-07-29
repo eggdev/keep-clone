@@ -3,11 +3,17 @@ import List from "@material-ui/core/List";
 
 import ListItemInput from "../ListItemInput/ListItemInput";
 
+const EmptyInput = React.forwardRef((props, ref) => {
+  return <ListItemInput ref={ref} {...props} />;
+});
+
 const CustomListItems = ({
   listItems,
   setListItems,
   inputsDisabled = false,
 }) => {
+  const emptyRef = React.createRef();
+
   const handledCheckedItem = (value) => {
     const currentIndex = listItems.indexOf(value);
     const updatedList = [...listItems];
@@ -37,11 +43,13 @@ const CustomListItems = ({
             setListItems={setListItems}
             inputsDisabled={inputsDisabled}
             removeItemFromList={removeItemFromList}
+            emptyRef={emptyRef}
           />
         );
       })}
       {!inputsDisabled && (
-        <ListItemInput
+        <EmptyInput
+          ref={emptyRef}
           listItems={listItems}
           setListItems={setListItems}
           newItem

@@ -23,7 +23,6 @@ const ListItemInput = ({
   inputsDisabled = false,
 }) => {
   const [currentListInput, setCurrentListInput] = useState(existingItem);
-
   const editExistingListItem = (value) => {
     if (!newItem) {
       const newList = [...listItems];
@@ -42,7 +41,6 @@ const ListItemInput = ({
   const handleBlur = () => handleListItemSubmit({ key: "Enter" });
 
   const handleListItemSubmit = (evt) => {
-    console.log(evt);
     if (evt.key === "Enter" && currentListInput.value !== "") {
       if (newItem) {
         setListItems([
@@ -54,7 +52,6 @@ const ListItemInput = ({
         ]);
         setCurrentListInput({ value: "", checked: false });
       }
-      if (document && document.activeElement) document.activeElement.blur();
     }
   };
 
