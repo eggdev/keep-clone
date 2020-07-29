@@ -1,17 +1,25 @@
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import TextField from "@material-ui/core/TextField";
+import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Add from "@material-ui/icons/Add";
 import Checkbox from "@material-ui/core/Checkbox";
 import Close from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
+import { idGenerator } from "../../utils/helpers";
+
+const useStyles = makeStyles((theme) => ({
+  checkedInput: {
+    textDecoration: "line-through",
+  },
+}));
 
 const ListItemInput = ({
-  index,
   newItem = false,
   existingItem = {
+    id: "",
     value: "",
     checked: false,
   },
@@ -22,13 +30,16 @@ const ListItemInput = ({
   checkbox = false,
   inputsDisabled = false,
 }) => {
+  const { checkedInput } = useStyles();
   const [currentListInput, setCurrentListInput] = useState(existingItem);
   const editExistingListItem = (value) => {
     if (!newItem) {
       const newList = [...listItems];
+      const index = newList.findIndex((item) => item.id === existingItem.id);
       const listItemToUpdate = { ...newList[index] };
       listItemToUpdate.value = value;
       newList[index] = listItemToUpdate;
+      newList.sort((a, b) => a.checked - b.checked);
       setListItems([...newList]);
     }
   };
@@ -46,6 +57,7 @@ const ListItemInput = ({
         setListItems([
           ...listItems,
           {
+            id: idGenerator(),
             value: currentListInput.value,
             checked: false,
           },
@@ -71,7 +83,8 @@ const ListItemInput = ({
           <Add edge="start" />
         )}
       </ListItemIcon>
-      <TextField
+      <InputBase
+        className={existingItem.checked ? checkedInput : ""}
         placeholder="Add an item..."
         value={inputsDisabled ? existingItem.value : currentListInput.value}
         onChange={handleCurrentListItemChange}
@@ -82,19 +95,17 @@ const ListItemInput = ({
         disabled={inputsDisabled}
         {...(!inputsDisabled &&
           !newItem && {
-            InputProps: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    data-testid="remove-item"
-                    onClick={() => removeItemFromList(existingItem)}
-                    edge="end"
-                  >
-                    <Close />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  data-testid="remove-item"
+                  onClick={() => removeItemFromList(existingItem)}
+                  edge="end"
+                >
+                  <Close />
+                </IconButton>
+              </InputAdornment>
+            ),
           })}
       />
     </ListItem>

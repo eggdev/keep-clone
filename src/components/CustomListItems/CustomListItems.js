@@ -21,7 +21,7 @@ const CustomListItems = ({
       ...updatedList[currentIndex],
       checked: !value.checked,
     };
-
+    updatedList.sort((a, b) => a.checked - b.checked);
     setListItems(updatedList);
   };
 
@@ -31,12 +31,11 @@ const CustomListItems = ({
 
   return (
     <List>
-      {listItems.map((item, index) => {
+      {listItems.map((item) => {
         return (
           <ListItemInput
-            key={`${index}_item`}
+            key={item.id}
             checkbox
-            index={index}
             existingItem={item}
             handledCheckedItem={handledCheckedItem}
             listItems={listItems}
