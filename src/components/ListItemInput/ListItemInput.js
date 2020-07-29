@@ -8,7 +8,7 @@ import Add from "@material-ui/icons/Add";
 import Checkbox from "@material-ui/core/Checkbox";
 import Close from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
-import { idGenerator } from "../../utils/helpers";
+import { idGenerator, sortByChecked } from "../../utils/helpers";
 
 const useStyles = makeStyles((theme) => ({
   checkedInput: {
@@ -39,8 +39,7 @@ const ListItemInput = ({
       const listItemToUpdate = { ...newList[index] };
       listItemToUpdate.value = value;
       newList[index] = listItemToUpdate;
-      newList.sort((a, b) => a.checked - b.checked);
-      setListItems([...newList]);
+      setListItems([...sortByChecked(newList)]);
     }
   };
 
@@ -54,14 +53,15 @@ const ListItemInput = ({
   const handleListItemSubmit = (evt) => {
     if (evt.key === "Enter" && currentListInput.value !== "") {
       if (newItem) {
-        setListItems([
+        const addedItemArray = [
           ...listItems,
           {
             id: idGenerator(),
             value: currentListInput.value,
             checked: false,
           },
-        ]);
+        ];
+        setListItems([...sortByChecked(addedItemArray)]);
         setCurrentListInput({ value: "", checked: false });
       }
     }

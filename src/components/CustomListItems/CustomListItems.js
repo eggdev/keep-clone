@@ -2,6 +2,7 @@ import React from "react";
 import List from "@material-ui/core/List";
 
 import ListItemInput from "../ListItemInput/ListItemInput";
+import { sortByChecked } from "../../utils/helpers";
 
 const EmptyInput = React.forwardRef((props, ref) => {
   return <ListItemInput ref={ref} {...props} />;
@@ -21,8 +22,7 @@ const CustomListItems = ({
       ...updatedList[currentIndex],
       checked: !value.checked,
     };
-    updatedList.sort((a, b) => a.checked - b.checked);
-    setListItems(updatedList);
+    setListItems([...sortByChecked(updatedList)]);
   };
 
   const removeItemFromList = (item) => {
