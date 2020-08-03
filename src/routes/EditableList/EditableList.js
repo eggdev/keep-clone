@@ -9,7 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 
-import CustomListItems from "../../components/CustomListItems/CustomListItems";
+import CustomListItems from "../../expired/CustomListItems/CustomListItems";
 
 import { createActiveList, updateActiveList } from "../../store/lists.actions";
 

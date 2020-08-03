@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 
-import ListLibraryItem from "../../components/ListLibraryItem/ListLibraryItem";
+import Item from "../../components/Item/Item";
 import EditableList from "../EditableList/EditableList";
 
 const ListLibrary = () => {
@@ -20,17 +20,26 @@ const ListLibrary = () => {
     history.push(`/`);
   };
 
+  const updateListItem = () => {
+    console.log("here");
+  };
+
   return (
     <Grid container spacing={1}>
       {activeLists.map((individualList) => (
-        <ListLibraryItem
+        <Item
           key={individualList.id}
           listDetails={individualList}
           openEditableList={openEditableList}
+          updateListItem={updateListItem}
         />
       ))}
       {isExact && (
-        <EditableList showDialog={isExact} setShowDialog={clearRoute} />
+        <EditableList
+          showDialog={isExact}
+          setShowDialog={clearRoute}
+          updateListItem={updateListItem}
+        />
       )}
     </Grid>
   );

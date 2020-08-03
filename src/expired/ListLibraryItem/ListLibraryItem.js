@@ -23,7 +23,7 @@ const CardContent = withStyles((theme) => ({
   },
 }))(MuiCardContent);
 
-const ListLibraryItem = ({ listDetails, openEditableList }) => {
+const ListLibraryItem = ({ listDetails, openEditableList, updateListItem }) => {
   const dispatch = useDispatch();
 
   const handleListClick = (evt) => {
@@ -33,11 +33,10 @@ const ListLibraryItem = ({ listDetails, openEditableList }) => {
   };
 
   const setListItems = (newListItems) => {
-    const updateListObject = {
+    updateListItem({
       ...listDetails,
       listItems: [...newListItems],
-    };
-    dispatch(updateActiveList(updateListObject));
+    });
   };
 
   const handleListDelete = () => {
