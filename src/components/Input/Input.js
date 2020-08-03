@@ -1,9 +1,45 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import Close from "@material-ui/icons/Close";
 
-const Input = () => {
-  return <InputBase />;
+const useStyles = makeStyles((theme) => ({
+  checkedInput: {
+    textDecoration: "line-through",
+  },
+}));
+
+const Input = ({
+  task = { checked: false, value: "" },
+  newItem = null,
+  disabled = null,
+}) => {
+  const { checkedInput } = useStyles();
+
+  return (
+    <InputBase
+      className={task.checked ? checkedInput : ""}
+      placeholder="Add an item..."
+      fullWidth
+      data-testid="input"
+      {...(!disabled &&
+        !newItem && {
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                data-testid="remove-item"
+                onClick={() => {}}
+                edge="end"
+              >
+                <Close />
+              </IconButton>
+            </InputAdornment>
+          ),
+        })}
+    />
+  );
 };
 
 export default Input;

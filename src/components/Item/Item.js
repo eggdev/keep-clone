@@ -16,7 +16,7 @@ const CardContent = withStyles((theme) => ({
 }))(MuiCardContent);
 
 const Item = ({ listDetails, openEditableList, updateListItem }) => {
-  const handleListClick = () => openEditableList(listDetails.id);
+  const handleListClick = () => openEditableList(listDetails);
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>

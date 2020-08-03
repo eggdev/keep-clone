@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 
 import Item from "../../components/Item/Item";
-import EditableList from "../EditableList/EditableList";
+import ListPage from "../ListPage/ListPage";
 
 const ListLibrary = () => {
+  const [openedList, setOpenedList] = useState();
   const history = useHistory();
   const routeMatch = useRouteMatch("/list/:id");
   const isExact = routeMatch && routeMatch.isExact;
   const { activeLists } = useSelector((state) => state.lists);
 
-  const openEditableList = (id) => {
-    history.push(`/list/${id}`);
+  const openEditableList = (listDetails) => {
+    setOpenedList(listDetails);
+    history.push(`/list/${listDetails.id}`);
   };
 
   const clearRoute = () => {
@@ -35,10 +37,11 @@ const ListLibrary = () => {
         />
       ))}
       {isExact && (
-        <EditableList
+        <ListPage
           showDialog={isExact}
           setShowDialog={clearRoute}
           updateListItem={updateListItem}
+          listDetails={openedList}
         />
       )}
     </Grid>

@@ -5,7 +5,11 @@ import Task from "../Task/Task";
 
 const EmptyInput = ({ ref, props }) => <Task ref={ref} {...props} />;
 
-const TaskList = ({ listItems, updateListItem, disabled = null }) => {
+const TaskList = ({
+  listItems = [],
+  updateListItem = () => {},
+  disabled = null,
+}) => {
   const emptyRef = React.createRef();
   return (
     <List>
