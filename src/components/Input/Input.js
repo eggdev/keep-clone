@@ -20,10 +20,11 @@ const Input = ({
 
   return (
     <InputBase
+      fullWidth
       className={task.checked ? checkedInput : ""}
       placeholder="Add an item..."
-      fullWidth
       data-testid="input"
+      value={task.value}
       {...(!disabled &&
         !newItem && {
           endAdornment: (
@@ -38,6 +39,7 @@ const Input = ({
             </InputAdornment>
           ),
         })}
+      disabled={disabled}
     />
   );
 };

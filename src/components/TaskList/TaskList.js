@@ -14,9 +14,9 @@ const TaskList = ({
   return (
     <List>
       {listItems.map((task) => (
-        <Task checkbox key={task.id} task={task} />
+        <Task disabled={disabled} checkbox key={task.id} task={task} />
       ))}
-      <EmptyInput newItem />
+      {!disabled && <EmptyInput newItem />}
     </List>
   );
 };

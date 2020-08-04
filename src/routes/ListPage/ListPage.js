@@ -58,7 +58,7 @@ const ListPage = ({
         />
       </DialogTitle>
       <DialogContent>
-        <TaskList />
+        <TaskList listItems={listObject.listItems} />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClearList}>Clear</Button>
