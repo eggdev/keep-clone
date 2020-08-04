@@ -41,6 +41,13 @@ const ListPage = ({
     });
   };
 
+  const handleListItemChange = (updatedListItems) => {
+    setListObject({
+      ...listObject,
+      listItems: [...updatedListItems],
+    });
+  };
+
   const handleClearList = () => {
     setListObject(listDetails);
   };
@@ -48,6 +55,11 @@ const ListPage = ({
   const onClose = () => {
     setShowDialog(false);
   };
+
+  // This needs to run often to capture all changes that happen to a list
+  // useEffect(() => {
+  //   dispatch(updateList(listObject));
+  // }, [listObject]);
 
   return (
     <Dialog
@@ -67,7 +79,10 @@ const ListPage = ({
         />
       </DialogTitle>
       <DialogContent>
-        <TaskList listItems={listObject.listItems} />
+        <TaskList
+          listItems={listObject.listItems}
+          handleListItemChange={handleListItemChange}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClearList}>Clear</Button>

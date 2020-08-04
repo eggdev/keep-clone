@@ -1,22 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import List from "@material-ui/core/List";
 
 import Task from "../Task/Task";
 
-const EmptyInput = ({ ref, props }) => <Task ref={ref} {...props} />;
+import { idGenerator } from "../../utils/helpers";
+
+const EmptyInput = ({ ref, ...props }) => <Task ref={ref} {...props} />;
 
 const TaskList = ({
   listItems = [],
-  updateListItem = () => {},
+  handleListItemChange = () => {},
   disabled = null,
 }) => {
-  const emptyRef = React.createRef();
+  const [newTaskObject, setNewTaskObject] = useState({
+    id: idGenerator(),
+    value: "",
+    checked: false,
+  });
+
+  const handleEmptyFocus = () => {
+    handleListItemChange([...listItems, newTaskObject]);
+  };
+
   return (
     <List>
       {listItems.map((task) => (
         <Task disabled={disabled} checkbox key={task.id} task={task} />
       ))}
-      {!disabled && <EmptyInput newItem />}
+      {!disabled && (
+        <EmptyInput newItem task={newTaskObject} setTask={setNewTaskObject} />
+      )}
     </List>
   );
 };

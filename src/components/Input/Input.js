@@ -18,7 +18,6 @@ const Input = ({
   ...props
 }) => {
   const { checkedInput } = useStyles();
-  console.log(task.id);
   return (
     <InputBase
       fullWidth
