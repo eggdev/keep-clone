@@ -15,9 +15,10 @@ const Input = ({
   task = { checked: false, value: "" },
   newItem = null,
   disabled = null,
+  ...props
 }) => {
   const { checkedInput } = useStyles();
-
+  console.log(task.id);
   return (
     <InputBase
       fullWidth
@@ -40,6 +41,7 @@ const Input = ({
           ),
         })}
       disabled={disabled}
+      {...props}
     />
   );
 };

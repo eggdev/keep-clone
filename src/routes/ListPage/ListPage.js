@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -9,6 +11,8 @@ import Button from "@material-ui/core/Button";
 
 import TaskList from "../../components/TaskList/TaskList";
 
+import { findOneInArray } from "../../utils/helpers";
+
 const useStyles = makeStyles(() => ({
   dialogContainer: {
     width: "100%",
@@ -16,14 +20,19 @@ const useStyles = makeStyles(() => ({
 }));
 
 const ListPage = ({
-  showDialog,
-  setShowDialog,
+  showDialog = false,
+  setShowDialog = () => {},
   newList = false,
   listDetails = { title: "", listItems: [] },
+  updateListItem = () => {},
 }) => {
+  const { id } = useParams();
+  const { activeLists } = useSelector((state) => state.lists);
   const { dialogContainer } = useStyles();
-
-  const [listObject, setListObject] = useState(listDetails);
+  const foundElement = findOneInArray(activeLists, "id", id);
+  const [listObject, setListObject] = useState(
+    newList ? listDetails : foundElement
+  );
 
   const handleTitleChange = (evt) => {
     setListObject({
