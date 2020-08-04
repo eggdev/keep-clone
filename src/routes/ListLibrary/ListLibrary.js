@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 
-import Item from "../../components/Item/Item";
+import LibraryItem from "../../components/LibraryItem/LibraryItem";
 import ListPage from "../ListPage/ListPage";
 
 const ListLibrary = () => {
@@ -29,7 +29,7 @@ const ListLibrary = () => {
   return (
     <Grid container spacing={1}>
       {activeLists.map((individualList) => (
-        <Item
+        <LibraryItem
           key={individualList.id}
           listDetails={individualList}
           openEditableList={openEditableList}
