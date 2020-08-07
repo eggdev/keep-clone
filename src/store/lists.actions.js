@@ -5,10 +5,14 @@ export function createActiveList(newList) {
   };
 }
 
-export function updateActiveList({ id, title, listItems }) {
+export function updateActiveList() {
+  return {};
+}
+
+export function updateListArray(updatedList) {
   return {
-    type: "UPDATE_LIST_ITEMS",
-    updated: { id, title, listItems },
+    type: "UPDATE_LIST",
+    updatedList,
   };
 }
 

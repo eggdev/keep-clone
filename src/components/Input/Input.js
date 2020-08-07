@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
@@ -13,11 +13,21 @@ const useStyles = makeStyles((theme) => ({
 
 const Input = ({
   task = { checked: false, value: "" },
+  setTaskValues = () => {},
   newItem = null,
   disabled = null,
   ...props
 }) => {
   const { checkedInput } = useStyles();
+
+  const handleCurrentInputChange = (evt) => {
+    const { value } = evt.target;
+    setTaskValues({
+      ...task,
+      value,
+    });
+  };
+
   return (
     <InputBase
       fullWidth
@@ -25,6 +35,7 @@ const Input = ({
       placeholder="Add an item..."
       data-testid="input"
       value={task.value}
+      onChange={handleCurrentInputChange}
       {...(!disabled &&
         !newItem && {
           endAdornment: (

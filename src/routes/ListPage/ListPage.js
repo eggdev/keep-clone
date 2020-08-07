@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -24,7 +24,7 @@ const ListPage = ({
   setShowDialog = () => {},
   newList = false,
   listDetails = { title: "", listItems: [] },
-  updateListItem = () => {},
+  updateList = () => {},
 }) => {
   const { id } = useParams();
   const { activeLists } = useSelector((state) => state.lists);
@@ -56,10 +56,9 @@ const ListPage = ({
     setShowDialog(false);
   };
 
-  // This needs to run often to capture all changes that happen to a list
-  // useEffect(() => {
-  //   dispatch(updateList(listObject));
-  // }, [listObject]);
+  useEffect(() => {
+    updateList(listObject);
+  }, [listObject]);
 
   return (
     <Dialog

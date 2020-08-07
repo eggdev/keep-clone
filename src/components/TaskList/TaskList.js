@@ -3,7 +3,7 @@ import List from "@material-ui/core/List";
 
 import Task from "../Task/Task";
 
-import { idGenerator } from "../../utils/helpers";
+import { idGenerator, findOneAndUpdate } from "../../utils/helpers";
 
 const EmptyInput = ({ ref, ...props }) => <Task ref={ref} {...props} />;
 
@@ -22,13 +22,28 @@ const TaskList = ({
     handleListItemChange([...listItems, newTaskObject]);
   };
 
+  const setTaskValues = (vals) => {
+    const newListItems = findOneAndUpdate(listItems, "id", vals.id, vals);
+    handleListItemChange([...newListItems]);
+  };
+
   return (
     <List>
       {listItems.map((task) => (
-        <Task disabled={disabled} checkbox key={task.id} task={task} />
+        <Task
+          disabled={disabled}
+          checkbox
+          key={task.id}
+          task={task}
+          setTaskValues={setTaskValues}
+        />
       ))}
       {!disabled && (
-        <EmptyInput newItem task={newTaskObject} setTask={setNewTaskObject} />
+        <EmptyInput
+          newItem
+          task={newTaskObject}
+          setTaskValues={setTaskValues}
+        />
       )}
     </List>
   );

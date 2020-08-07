@@ -1,13 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useRouteMatch } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 
 import LibraryItem from "../../components/LibraryItem/LibraryItem";
 import ListPage from "../ListPage/ListPage";
 
+import { findOneAndUpdate } from "../../utils/helpers.js";
+import { updateListArray } from "../../store/lists.actions";
+
 const ListLibrary = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const routeMatch = useRouteMatch("/list/:id");
   const isExact = routeMatch && routeMatch.isExact;
   const { activeLists } = useSelector((state) => state.lists);
@@ -20,8 +24,14 @@ const ListLibrary = () => {
     history.push(`/`);
   };
 
-  const updateListItem = () => {
-    console.log("here");
+  const updateList = (listToUpdate) => {
+    const updatedListArr = findOneAndUpdate(
+      activeLists,
+      "id",
+      listToUpdate.id,
+      listToUpdate
+    );
+    dispatch(updateListArray(updatedListArr));
   };
 
   return (
@@ -31,14 +41,14 @@ const ListLibrary = () => {
           key={individualList.id}
           listDetails={individualList}
           openEditableList={openEditableList}
-          updateListItem={updateListItem}
+          updateList={updateList}
         />
       ))}
       {isExact && (
         <ListPage
           showDialog={isExact}
           setShowDialog={clearRoute}
-          updateListItem={updateListItem}
+          updateList={updateList}
         />
       )}
     </Grid>

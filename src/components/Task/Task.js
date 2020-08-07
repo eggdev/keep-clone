@@ -8,7 +8,7 @@ import Checkbox from "../Checkbox/Checkbox";
 
 const Task = ({
   task = { value: "", checked: false },
-  setTask = () => {},
+  setTaskValues = () => {},
   checkbox = null,
   newItem = null,
   disabled = null,
@@ -19,7 +19,13 @@ const Task = ({
       <ListItemIcon>
         {checkbox ? <Checkbox checked={task.checked} /> : <Add edge="start" />}
       </ListItemIcon>
-      <Input task={task} disabled={disabled} newItem {...props} />
+      <Input
+        task={task}
+        setTaskValues={setTaskValues}
+        disabled={disabled}
+        newItem
+        {...props}
+      />
     </ListItem>
   );
 };

@@ -16,3 +16,9 @@ export function sortByChecked(arr) {
 export function findOneInArray(arr, param, paramValue) {
   return arr.find((a) => a[param] === paramValue);
 }
+
+export function findOneAndUpdate(arr, searchParam, searchValue, updatedObject) {
+  return arr.map((el) =>
+    el[searchParam] === searchValue ? { ...updatedObject } : el
+  );
+}

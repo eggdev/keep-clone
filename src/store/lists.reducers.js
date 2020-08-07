@@ -14,18 +14,10 @@ export const lists = (state = initialState, action) => {
           { ...action.newList, id: idGenerator() },
         ],
       };
-    case "UPDATE_LIST_ITEMS":
-      const updateIndex = state.activeLists.findIndex(
-        (item) => item.id === action.updated.id
-      );
-
+    case "UPDATE_LIST":
       return {
         ...state,
-        activeLists: [
-          ...state.activeLists.slice(0, updateIndex),
-          { ...action.updated },
-          ...state.activeLists.slice(updateIndex + 1),
-        ],
+        activeLists: [...action.updatedList],
       };
     case "ARCHIVE_LIST":
       // This would be an easy solution to creating an archive like Google Keep has
