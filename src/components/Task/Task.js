@@ -17,7 +17,11 @@ const Task = ({
   return (
     <ListItem>
       <ListItemIcon>
-        {checkbox ? <Checkbox checked={task.checked} /> : <Add edge="start" />}
+        {checkbox ? (
+          <Checkbox setTaskValues={setTaskValues} task={task} />
+        ) : (
+          <Add edge="start" />
+        )}
       </ListItemIcon>
       <Input
         task={task}

@@ -1,10 +1,16 @@
 import React from "react";
 import MuiCheckbox from "@material-ui/core/Checkbox";
 
-const Checkbox = ({ checked, handleCheck }) => {
+const Checkbox = ({ task, setTaskValues }) => {
+  const handleCheck = () => {
+    setTaskValues({
+      ...task,
+      checked: !task.checked,
+    });
+  };
   return (
     <MuiCheckbox
-      checked={checked}
+      checked={task.checked}
       edge="start"
       tabIndex={-1}
       disableRipple
